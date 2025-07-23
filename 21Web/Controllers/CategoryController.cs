@@ -21,4 +21,9 @@ public class CategoryController : Controller
         List<Category>  categories = _context.Categories.ToList();
         return View(categories);
     }
+
+    public IActionResult Create()
+    {
+        return View();
+    }
 }
