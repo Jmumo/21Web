@@ -16,4 +16,9 @@
       </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\21.Models\21.Models.csproj" />
+      <ProjectReference Include="..\21.Utility\21.Utility.csproj" />
+    </ItemGroup>
+
 </Project>

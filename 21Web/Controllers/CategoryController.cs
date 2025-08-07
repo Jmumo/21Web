@@ -1,5 +1,7 @@
-using _21Web.Data;
-using _21Web.Models;
+using _21.DataAccess.Data;
+using _21.Models.Models;
+
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace _21Web.Controllers;
