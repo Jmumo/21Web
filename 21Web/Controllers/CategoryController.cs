@@ -1,4 +1,5 @@
 using _21.DataAccess.Data;
+using _21.DataAccess.Repository.IRepository;
 using _21.Models.Models;
 
 
@@ -10,8 +11,8 @@ namespace _21Web.Controllers;
 public class CategoryController : Controller
 {
     private readonly ILogger<CategoryController> _logger;
-    private readonly ApplicationDbContext _context;
-    public CategoryController(ApplicationDbContext context, ILogger<CategoryController> logger)
+    private readonly IRepositoryCategory _context;
+    public CategoryController(IRepositoryCategory context, ILogger<CategoryController> logger)
     {
        
        _context = context;
@@ -20,7 +21,7 @@ public class CategoryController : Controller
     public IActionResult Index()
     {
         
-        List<Category>  categories = _context.Categories.ToList();
+        List<Category>  categories = _context.GetAll().ToList();
         return View(categories);
     }
 
@@ -38,8 +39,8 @@ public class CategoryController : Controller
         }
         if (ModelState.IsValid)
         {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
+            _context.Add(category);
+            _context.Save();
             TempData["Message"] = "Category Added Successfully";
             return RedirectToAction("Index", "Category");
         }
@@ -53,7 +54,7 @@ public class CategoryController : Controller
         {
             return NotFound(); 
         }
-        Category category = _context.Categories.Find(id);
+        Category category = _context.Get(u => u.Id == id);
         if (category == null)
         {
             return NotFound();
@@ -71,8 +72,8 @@ public class CategoryController : Controller
         }
         if (ModelState.IsValid)
         {
-            _context.Categories.Update(category);
-            _context.SaveChanges();
+            _context.Update(category);
+            _context.Save();
             TempData["Message"] = "Category Updated Successfully";
             return RedirectToAction("Index", "Category");
         }
@@ -83,10 +84,12 @@ public class CategoryController : Controller
     public IActionResult DeleteCategory(int? id )
     {
         
-        Category category = _context.Categories.Find(id);
-        _context.Categories.Remove(category);
-        _context.SaveChanges();
+        Category category = _context.Get(u => u.Id == id);
+        _context.Remove(category);
+        _context.Save();
         TempData["Message"] = "Category Deleted Successfully";
         return RedirectToAction("Index", "Category");
     }
 }
+
+//dotnet ef database update  
