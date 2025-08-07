@@ -1,7 +1,9 @@
-using _21Web.Models;
+
+using _21.Models.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace _21Web.Data;
+
+namespace _21.DataAccess.Data;
 
 
 public class ApplicationDbContext : DbContext
