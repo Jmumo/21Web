@@ -32,23 +32,25 @@ public class Repository<T>  : IRepository<T> where T : class
         return query.FirstOrDefault();
     }
 
-    public void Add(T Entity)
+    public void Add(T entity)
     {
-        dbSet.Add(Entity);
+        dbSet.Add(entity);
     }
 
-    public void Update(T Entity)
+    public void Update(T entity)
     {
-        dbSet.Update(Entity);
+        dbSet.Update(entity);
     }
 
-    public void Remove(T Entity)
+    public void Remove(T entity)
     {
-        dbSet.Remove(Entity);
+        dbSet.Remove(entity);
     }
 
     public void RemoveRange(IEnumerable<T> entities)
     {
         dbSet.RemoveRange(entities);
+      
     }
+
 }
