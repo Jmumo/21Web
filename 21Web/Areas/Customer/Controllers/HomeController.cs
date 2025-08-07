@@ -4,7 +4,9 @@ using _21Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _21Web.Controllers
-{
+{    
+    
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

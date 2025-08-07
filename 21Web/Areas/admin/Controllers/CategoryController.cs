@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace _21Web.Controllers;
 
-
+[Area("admin")]
 public class CategoryController : Controller
 {
     private readonly ILogger<CategoryController> _logger;
-    private readonly IRepositoryCategory _context;
-    public CategoryController(IRepositoryCategory context, ILogger<CategoryController> logger)
+    private readonly IUnitOfWork _context;
+    public CategoryController(IUnitOfWork context, ILogger<CategoryController> logger)
     {
        
        _context = context;
@@ -21,7 +21,7 @@ public class CategoryController : Controller
     public IActionResult Index()
     {
         
-        List<Category>  categories = _context.GetAll().ToList();
+        List<Category>  categories = _context.IRepositoryCategory.GetAll().ToList();
         return View(categories);
     }
 
@@ -39,7 +39,7 @@ public class CategoryController : Controller
         }
         if (ModelState.IsValid)
         {
-            _context.Add(category);
+            _context.IRepositoryCategory.Add(category);
             _context.Save();
             TempData["Message"] = "Category Added Successfully";
             return RedirectToAction("Index", "Category");
@@ -54,7 +54,7 @@ public class CategoryController : Controller
         {
             return NotFound(); 
         }
-        Category category = _context.Get(u => u.Id == id);
+        Category category = _context.IRepositoryCategory.Get(u => u.Id == id);
         if (category == null)
         {
             return NotFound();
@@ -72,7 +72,7 @@ public class CategoryController : Controller
         }
         if (ModelState.IsValid)
         {
-            _context.Update(category);
+            _context.IRepositoryCategory.Update(category);
             _context.Save();
             TempData["Message"] = "Category Updated Successfully";
             return RedirectToAction("Index", "Category");
@@ -84,8 +84,8 @@ public class CategoryController : Controller
     public IActionResult DeleteCategory(int? id )
     {
         
-        Category category = _context.Get(u => u.Id == id);
-        _context.Remove(category);
+        Category category = _context.IRepositoryCategory.Get(u => u.Id == id);
+        _context.IRepositoryCategory.Remove(category);
         _context.Save();
         TempData["Message"] = "Category Deleted Successfully";
         return RedirectToAction("Index", "Category");

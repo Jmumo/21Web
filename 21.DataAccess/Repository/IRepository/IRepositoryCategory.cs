@@ -5,5 +5,5 @@ namespace _21.DataAccess.Repository.IRepository;
 public interface IRepositoryCategory : IRepository<Category>
 {
     void Update(Category obj);
-    void Save();
+  
 }
