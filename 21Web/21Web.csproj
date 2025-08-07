@@ -14,11 +14,38 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\21.DataAccess\21.DataAccess.csproj" />
     <ProjectReference Include="..\21.Models\21.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Areas\admin\Views\Category\Create.cshtml" />
+    <AdditionalFiles Include="Areas\admin\Views\Category\Edit.cshtml" />
+    <AdditionalFiles Include="Areas\admin\Views\Category\index.cshtml" />
+    <AdditionalFiles Include="Areas\admin\Views\_ViewImports.cshtml" />
+    <AdditionalFiles Include="Areas\admin\Views\_ViewStart.cshtml" />
+    <AdditionalFiles Include="Areas\Customer\Views\Home\Index.cshtml" />
+    <AdditionalFiles Include="Areas\Customer\Views\Home\Privacy.cshtml" />
+    <AdditionalFiles Include="Areas\Customer\Views\_ViewImports.cshtml" />
+    <AdditionalFiles Include="Areas\Customer\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Customer\Home\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Customer\Home\Privacy.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\admin\Category\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\admin\Category\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\admin\Category\index.cshtml" />
   </ItemGroup>
 
 </Project>
