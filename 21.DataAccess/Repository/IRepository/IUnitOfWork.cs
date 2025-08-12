@@ -4,6 +4,7 @@ public interface IUnitOfWork
 {
     
     IRepositoryCategory IRepositoryCategory { get; }
+    IRepositoryProduct IRepositoryProduct { get; }
     void Save();
     
 }
