@@ -26,3 +26,8 @@ volumes:
 networks:
   mssql_network:
     driver: bridge
+    
+    
+    
+#  dotnet ef database update  
+#  dotnet ef migrations add AddCategoryToProduct
