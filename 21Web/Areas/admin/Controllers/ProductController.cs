@@ -23,7 +23,7 @@ public class ProductController : Controller
     public IActionResult Index()
     {
         
-        List<Product>  products = _context.IRepositoryProduct.GetAll().ToList();
+        List<Product>  products = _context.IRepositoryProduct.GetAll(includeProperties:"Category").ToList();
         return View(products);
     }
 
@@ -102,34 +102,6 @@ public class ProductController : Controller
         return  View();
     }
     
-    // public IActionResult Edit( int? id )
-    // {
-    //
-    //     if (id == null || id == 0)
-    //     {
-    //         return NotFound(); 
-    //     }
-    //     Product product = _context.IRepositoryProduct.Get(u => u.Id == id);
-    //     
-    //     if (product == null)
-    //     {
-    //         return NotFound();
-    //     }
-    //     return View(product);
-    // }
-    
-    // [HttpPost]
-    // public IActionResult Edit (Product product)
-    // {
-    //
-    //   
-    //     if (ModelState.IsValid)
-    //     {
-    //      
-    //     }
-    //     return  View();
-    // }
-
     [HttpPost]
     public IActionResult DeleteProduct(int? id )
     {
@@ -140,4 +112,14 @@ public class ProductController : Controller
         TempData["Message"] = "Product Deleted Successfully";
         return RedirectToAction("Index", "Product");
     }
+
+    #region API CALLs
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        List<Product> products = _context.IRepositoryProduct.GetAll(includeProperties:"Category").ToList();
+        return Json(new { data = products });
+    }
+    #endregion
+   
 }
