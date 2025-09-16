@@ -1,13 +1,14 @@
 using _21.DataAccess.Data;
 using _21.DataAccess.Repository.IRepository;
 using _21.Models.Models;
-
-
+using _21.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _21Web.Controllers;
 
 [Area("admin")]
+[Authorize(Roles = SD.Role_Admin)]
 public class CategoryController : Controller
 {
     private readonly ILogger<CategoryController> _logger;
