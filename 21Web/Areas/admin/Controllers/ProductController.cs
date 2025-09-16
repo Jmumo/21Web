@@ -1,12 +1,15 @@
 using _21.DataAccess.Repository.IRepository;
 using _21.Models.Models;
 using _21.Models.ViewModels;
+using _21.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace _21Web.Controllers;
 
 [Area("admin")]
+[Authorize(Roles = SD.Role_Admin)]
 public class ProductController : Controller
 { 
     private readonly ILogger<ProductController> _logger;
@@ -102,16 +105,16 @@ public class ProductController : Controller
         return  View();
     }
     
-    [HttpPost]
-    public IActionResult DeleteProduct(int? id )
-    {
-        
-        Product product = _context.IRepositoryProduct.Get(u => u.Id == id);
-        _context.IRepositoryProduct.Remove(product);
-        _context.Save();
-        TempData["Message"] = "Product Deleted Successfully";
-        return RedirectToAction("Index", "Product");
-    }
+    // [HttpPost]
+    // public IActionResult DeleteProduct(int? id )
+    // {
+    //     
+    //     Product product = _context.IRepositoryProduct.Get(u => u.Id == id);
+    //     _context.IRepositoryProduct.Remove(product);
+    //     _context.Save();
+    //     TempData["Message"] = "Product Deleted Successfully";
+    //     return RedirectToAction("Index", "Product");
+    // }
 
     #region API CALLs
     [HttpGet]
@@ -119,6 +122,26 @@ public class ProductController : Controller
     {
         List<Product> products = _context.IRepositoryProduct.GetAll(includeProperties:"Category").ToList();
         return Json(new { data = products });
+    }
+
+    [HttpDelete]
+    public IActionResult Delete(int id)
+    {
+        var productToDeleted = _context.IRepositoryProduct.Get(u => u.Id == id);
+        if (productToDeleted == null)
+        {
+            return Json(new { success = false, message = "Product not found" });;
+        }
+        var oldImage = Path.Combine(_env.WebRootPath, productToDeleted.ImageUrl.TrimStart('/'));
+        
+        if (System.IO.File.Exists(oldImage))
+        {
+            System.IO.File.Delete(oldImage);
+        }
+        _context.IRepositoryProduct.Remove(productToDeleted);
+        _context.Save();
+        return Json(new { success = true, message = "Product Deleted Successfully" });
+        
     }
     #endregion
    
